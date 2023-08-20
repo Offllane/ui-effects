@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slider-container {
+  width: 90%;
+  height: 90vh;
+  margin-top: 5vh;
+  border: 2px solid black;
+}
+
+.image-track {
+  position: absolute;
+  display: flex;
+  gap: 4vmin;
+  left: 50%;
+  top: 50%;
+  transform: translate(0%, -50%);
+}
+.image-track .image {
+  width: 40vmin;
+  height: 56vmin;
+  object-fit: cover;
+  object-position: 100% 50%;
+}
+
+/*# sourceMappingURL=style.css.map */
