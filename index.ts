@@ -1,6 +1,8 @@
 const track = document.getElementById('image-track');
 // @ts-ignore
 const imagesArray = Array.from(track.getElementsByClassName('image'));
+// @ts-ignore
+const logos = Array.from(document.getElementsByClassName('logo'));
 
 window.onmousedown = (event: MouseEvent) => {
   track.dataset.mouseDownAt = String(event.clientX);
@@ -34,3 +36,27 @@ window.onmouseup = () => {
     track.dataset.mouseDownAt = '0';
     track.dataset.prevPercentage = track.dataset.percentage;
 }
+
+const letters = 'ABCDEFGHIJKLMNOPQRSTUWXYZ';
+const letterQuantity = letters.length;
+
+logos.forEach(logo => {
+    logo.onmouseover = event => {
+        let iterations = 0;
+        const interval = setInterval(() => {
+            event.target.innerText = event.target.innerText
+                .split('')
+                .map((letter, index) => {
+                    if (index < iterations) {
+                        return event.target.dataset.value[index];
+                    }
+
+                    const randomLetterIndex = Math.floor(Math.random() * letterQuantity);
+                    return letters[randomLetterIndex];
+                }).join('');
+
+            if (iterations >= event.target.dataset.value.length) { clearInterval(interval); }
+            iterations += 1 / 3;
+        }, 30)
+    }
+})

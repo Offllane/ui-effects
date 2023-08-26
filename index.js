@@ -1,6 +1,8 @@
 var track = document.getElementById('image-track');
 // @ts-ignore
 var imagesArray = Array.from(track.getElementsByClassName('image'));
+// @ts-ignore
+var logos = Array.from(document.getElementsByClassName('logo'));
 window.onmousedown = function (event) {
     track.dataset.mouseDownAt = String(event.clientX);
 };
@@ -31,3 +33,25 @@ window.onmouseup = function () {
     track.dataset.mouseDownAt = '0';
     track.dataset.prevPercentage = track.dataset.percentage;
 };
+var letters = 'ABCDEFGHIJKLMNOPQRSTUWXYZ';
+var letterQuantity = letters.length;
+logos.forEach(function (logo) {
+    logo.onmouseover = function (event) {
+        var iterations = 0;
+        var interval = setInterval(function () {
+            event.target.innerText = event.target.innerText
+                .split('')
+                .map(function (letter, index) {
+                if (index < iterations) {
+                    return event.target.dataset.value[index];
+                }
+                var randomLetterIndex = Math.floor(Math.random() * letterQuantity);
+                return letters[randomLetterIndex];
+            }).join('');
+            if (iterations >= event.target.dataset.value.length) {
+                clearInterval(interval);
+            }
+            iterations += 1 / 3;
+        }, 30);
+    };
+});
